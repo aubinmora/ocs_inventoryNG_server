@@ -7,7 +7,7 @@ Tested of CentOS 7, Debian 9.X, currently working with no issue (might as well w
 
 
 Ubuntu semi-works, as there is issues between mariaDB and AppArmor.
-It is also really slow. This distribution will only receive feable support.
+It is also really slow, break packages dependancies, only allow last version of PHP natively, etc... . This distribution will only receive minimal support.
 
 # How to use the Role:
 
