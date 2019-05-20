@@ -35,4 +35,3 @@ def test_ufw_rules(host, rule):
     cmd = host.run('iptables -t filter -S')
 
     assert rule in cmd.stdout
-    
