@@ -141,7 +141,7 @@
 
 - name: Copy ocs conf files 
   copy:
-    src: "{{ apache_include_conf_directory }}/z-ocsinventory-reports.conf"
+    src: "{{ apache_include_conf_directory }}/ocsinventory-reports.conf"
     dest: /etc/apache2
     remote_src: yes
 
@@ -153,7 +153,7 @@
 
 - name: Create Symlinks
   file:
-    src: "{{ apache_include_conf_directory }}/z-ocsinventory-reports.conf"
+    src: "{{ apache_include_conf_directory }}/ocsinventory-reports.conf"
     dest: "{{ apache_include_conf_directory }}/ocsinventory.conf"
     state: link
 
@@ -179,3 +179,14 @@
     recurse: yes
     owner: "{{ apache_account }}"
     group: "{{ apache_group }}"
+
+- name: Activate configuration for apache2
+  command:
+    a2enconf z-ocsinventory-server
+    a2enconf ocsinventory-reports
+    a2enconf zz-ocsinventory-restapi
+
+- name: restart Apache
+  service:
+    name: apache2
+    state: restarted

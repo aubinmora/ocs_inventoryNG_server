@@ -5,6 +5,7 @@
     permanent: yes
     state: enabled
     immediate: yes
+  when: ansible_os_family == "RedHat"
 
 - name: open port for service http
   firewalld:
@@ -12,8 +13,26 @@
     permanent: yes
     state: enabled
     immediate: yes
+  when: ansible_os_family == "RedHat"
 
 - name: reload firewalld
   service:
     name: firewalld
     state: restarted
+  when:  ansible_os_family == "RedHat"
+
+- name: Firewall rule - allow port 80/HTTP traffic
+  iptables:
+    chain: INPUT
+    destination_port: "80"
+    jump: ACCEPT
+    protocol: tcp
+  when: ansible_os_family == "Debian"
+
+- name: Firewall rule - allow port 443/HTTPS traffic
+  iptables:
+    chain: INPUT
+    destination_port: "443"
+    jump: ACCEPT
+    protocol: tcp
+  when: ansible_os_family == "Debian"
