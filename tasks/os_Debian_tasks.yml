@@ -14,8 +14,8 @@
 - name: installing mariadb
   apt:
     name:
-    - mariadb-server
-    - software-properties-common
+      - mariadb-server
+      - software-properties-common
   when: ansible_distribution == "Ubuntu"
 
 - name: install extra repo for "Ubuntu"

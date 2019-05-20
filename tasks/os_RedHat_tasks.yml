@@ -189,7 +189,7 @@
     owner: "{{ apache_account }}"
     group: "{{ apache_group }}"
 
-#sefcontext not working properly
+# sefcontext not working properly
 - name: set file permission for selinux
   command: chcon -R -t httpd_sys_rw_content_t {{ static_admin_console_file_path }}/
   when: ansible_os_family == "RedHat"
