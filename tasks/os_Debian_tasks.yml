@@ -10,9 +10,17 @@
       - cpanminus
     state: present
 
+## There is a known bug with apparmor which messes with MariaDB
 - name: installing mariadb
   apt:
-    name: mariadb-server
+    name: 
+    - mariadb-server
+    - python-software-properties
+  when: ansible_distribution == "Ubuntu"
+
+- name: install extra repo for "Ubuntu"
+  apt_repository:
+    repo: ppa:ondrej/php
   when: ansible_distribution == "Ubuntu"
 
 - name: installing mariadb
