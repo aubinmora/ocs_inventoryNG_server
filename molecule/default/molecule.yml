@@ -5,6 +5,8 @@ driver:
   name: docker
 lint:
   name: yamllint
+  option:
+    config-file: molecule/default/yaml-lint.yml
 platforms:
   - name: centos7
     image: milcom/centos7-systemd
@@ -15,10 +17,13 @@ platforms:
     privileged: true
     volumes:
       - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
   name: default
 verifier:

@@ -1,20 +1,26 @@
 ---
-sudo: required
 language: python
-python:
-  - "2.7"
-  - "3.6"
-# Doc: https://docs.travis-ci.com/user/customizing-the-build#Build-Matrix
+services: docker
 env:
-  - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=2.8
-  - ANSIBLE_VERSION=2.7
-  - ANSIBLE_VERSION=2.6
-services:
-  - docker
+  global:
+    - ROLE_NAME: docker
+  matrix:
+    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: ubuntu1604
+    - MOLECULE_DISTRO: ubuntu1404
+    - MOLECULE_DISTRO: debian9
+    - MOLECULE_DISTRO: fedora30
+    - MOLECULE_DISTRO: fedora29
+    - MOLECULE_DISTRO: fedora28
+    - MOLECULE_DISTRO: fedora27
 install:
   - pip install molecule docker
+before_script:
+  - cd ../
+  - mv ansible-role-$ROLE_NAME aubinmora.$ROLE_NAME
+  - cd geerlingguy.$ROLE_NAME
 script:
-  - molecule --version
-  - ansible --version
   - molecule test
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
