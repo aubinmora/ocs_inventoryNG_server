@@ -69,6 +69,7 @@
       - php-gettext
       - php{{ php_version }}-curl
       - php{{ php_version }}-zip
+      - php{{ php_version }}-xml
       - apache2-dev
     state: present
 
@@ -126,6 +127,16 @@
 - name: install Plack::Handler module from cpan for ubuntu
   cpanm:
     name: Switch
+  when: ansible_distribution == "Ubuntu"
+
+- name: install Plack::Handler module from cpan for ubuntu
+  cpanm:
+    name: Parse::EDID
+  when: ansible_distribution == "Ubuntu"
+
+- name: install Plack::Handler module from cpan for ubuntu
+  cpanm:
+    name: Compress::Zlib
   when: ansible_distribution == "Ubuntu"
 
 - name: restart apache
