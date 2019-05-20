@@ -183,7 +183,13 @@
 - name: Activate configuration for apache2
   command:
     a2enconf z-ocsinventory-server
+
+- name: Activate configuration for apache2
+  command:
     a2enconf ocsinventory-reports
+
+- name: Activate configuration for apache2
+  command:
     a2enconf zz-ocsinventory-restapi
 
 - name: restart Apache
