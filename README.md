@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/aubinmora/ansible-apache.svg?branch=master)](https://travis-ci.org/username/ansible-apache)
+[![Build Status](https://travis-ci.org/aubinmora/ocs_inventoryNG_server.svg?branch=master)](https://travis-ci.org/username/ansible-apache)
 
 # ocs_inventoryNG_server
 Ansible role for OCS inventory NG
