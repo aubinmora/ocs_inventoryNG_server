@@ -189,7 +189,8 @@
     owner: "{{ apache_account }}"
     group: "{{ apache_group }}"
 
-- name: set file permission for selinux 
+#sefcontext not working properly
+- name: set file permission for selinux
   shell: chcon -R -t httpd_sys_rw_content_t {{ static_admin_console_file_path }}/
 
 - name: restart Apache
