@@ -10,4 +10,3 @@ ocs_database_server: localhost
 ocs_database_server_port: 3306
 
 uploadfilesize: 100
-postfilesize: 100

@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: aubinmora
   description: Ansible role to set up Ocs Inventory NG Server
