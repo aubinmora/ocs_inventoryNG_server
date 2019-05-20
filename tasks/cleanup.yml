@@ -25,15 +25,15 @@
     regexp: '^post_max_size'
     line: post_max_size = {{ postfilesize }}M
 
-- name: removing utilities
-  yum:
-    name:
-      - wget
-      - MySQL-python
-      - python-pip
-      - policycoreutils-python
-    state: absent
-  when: "{{ ansible_os_family }} == RedHat"
+#- name: removing utilities
+#  yum:
+#    name:
+#      - wget
+#      - MySQL-python
+#      - python-pip
+#      - policycoreutils-python
+#    state: absent
+#  when: "{{ ansible_os_family }} == RedHat"
 
 - name: removing temp install files
   file: 
