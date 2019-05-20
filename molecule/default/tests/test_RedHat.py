@@ -36,3 +36,4 @@ def test_firewalld(host, file, content):
 
     assert file.exists
     assert file.contains(content)
+    
