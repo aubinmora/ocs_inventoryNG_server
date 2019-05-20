@@ -5,6 +5,7 @@ driver:
   name: docker
 lint:
   name: yamllint
+# yamllint disable rule: line-length rule: truphy
 platforms:
   - name: centos7
     image: milcom/centos7-systemd
