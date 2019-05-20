@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/aubinmora/ocs_inventoryNG_server.svg?branch=master)](https://travis-ci.org/username/ansible-apache)
+
 # ocs_inventoryNG_server
 Ansible role for OCS inventory NG
 
@@ -20,5 +22,3 @@ There is little to edit in the config files. For most users, editing the common_
 # About the Author
 
 There is little to gain by writing such a role (somehow time consuming to say the least), it was done mainly as a form of practice, might as well share. I will edit it if changes are needed. Please notify me if something breaks/If you have improvements in mind.
-
-[![Build Status](https://travis-ci.org/aubinmora/ansible-apache.svg?branch=master)](https://travis-ci.org/username/ansible-apache)
