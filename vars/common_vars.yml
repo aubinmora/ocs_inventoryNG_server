@@ -1,0 +1,16 @@
+---
+#if php version is 5.6, switch the phpinipath statements in the ocs specific var file
+php_version: 70
+
+ocs_version: 2.6
+
+unzip_location: /home
+
+ocs_database_name: ocsweb
+ocs_database_user: ocs
+ocs_database_pass: ocs
+ocs_database_server: localhost
+ocs_database_server_port: 3306
+
+uploadfilesize: 100
+postfilesize: 100

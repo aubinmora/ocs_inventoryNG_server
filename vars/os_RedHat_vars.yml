@@ -1,20 +1,6 @@
 ---
-#if php version is 5.6, switch the phpinipath statements below
-php_version: 70
-
 phpinipath: /etc/opt/remi/php{{ php_version }}/php.ini
 #phpinipath: /opt/remi/php56/root/etc/php.ini
-
-ocs_version: 2.6
-
-unzip_location: /home
-
-ocs_database_name: ocsweb
-ocs_database_user: ocs
-ocs_database_pass: ocs
-
-ocs_database_server: localhost
-ocs_database_server_port: 3306
 
 apache_daemon_binary_location: /sbin/httpd
 apache_main_configuration_file: /etc/httpd/conf/httpd.conf
@@ -29,6 +15,3 @@ desired_perl_module_file_path: /etc/ocsinventory-server/perl
 rest_api_store: /usr/lib64/perl5/vendor_perl
 static_admin_console_file_path: /usr/share/ocsinventory-reports
 deployment_package_dir_path: /var/lib/ocsinventory-reports
-
-uploadfilesize: 200
-postfilesize: 200
