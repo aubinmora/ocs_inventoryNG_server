@@ -1,9 +1,9 @@
 ---
-#if php version is 5.6, switch the phpinipath statements in the ocs specific var file
+# if php version is 5.6, switch the phpinipath statements in the ocs specific var file
 php_version: 70
 
 phpinipath: /etc/opt/remi/php{{ php_version }}/php.ini
-#phpinipath: /opt/remi/php56/root/etc/php.ini
+# phpinipath: /opt/remi/php56/root/etc/php.ini
 
 apache_daemon_binary_location: /sbin/httpd
 apache_main_configuration_file: /etc/httpd/conf/httpd.conf
