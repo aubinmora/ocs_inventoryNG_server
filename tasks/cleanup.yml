@@ -33,3 +33,9 @@
       - python-pip
       - policycoreutils-python
     state: absent
+  when: "{{ ansible_os_family }} == RedHat"
+
+- name: removing temp install files
+  file: 
+    path: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}"
+    state: absent
