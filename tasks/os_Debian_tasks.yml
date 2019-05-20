@@ -124,14 +124,14 @@
 
 - name: ocsinventory conf file
   stat:
-    path: "{{ apache_include_conf_directory }}z-ocsinventory-server.conf"
+    path: "{{ apache_include_conf_directory }}/z-ocsinventory-server.conf"
   register: ocsconffile
 
 - name: execute install script with answer file
   shell: ./setup.sh < responsefile.txt
   args:
     chdir: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/"
-  when: ocsconffile is not defined
+  when: ocsconffile.stat.exists == False
 
 - name: Copy ocs conf files 
   copy:
