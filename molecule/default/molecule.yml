@@ -6,8 +6,8 @@ driver:
 lint:
   name: yamllint
   options:
-    line-length: {max: 200}
-    truthy: {}
+  - line-length: {max: 200}
+  - truthy: {}
 platforms:
   - name: centos7
     image: milcom/centos7-systemd
