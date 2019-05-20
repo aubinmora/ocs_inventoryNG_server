@@ -1,0 +1,110 @@
+---
+- name: installing basic dependancies
+  apt:
+    name:
+      - make
+      - build-essential
+      - aptitude
+      - mysql-server
+      - apache2
+    state: present
+
+- name: start Mariadb
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: create database database
+  mysql_db:
+    name: "{{ ocs_database_name }}"
+    state: present
+
+- name: Create database user and grant privileges
+  mysql_user:
+    name: "{{ ocs_database_user }}"
+    password: "{{ ocs_database_pass }}"
+    priv: "{{ ocs_database_name }}.*:ALL"
+    state: present
+
+- name: restart Mariadb
+  service:
+    name: mariadb
+    state: restarted
+
+- name: edit php.ini
+  lineinfile:
+    path: /etc/mysql/my.cnf
+    regexp: '^max_allowed_packet'
+    line: max_allowed_packet= 32M
+
+- name: installing apache, dependancies and php and dependancies
+  apt:
+    name:
+      - apache2
+      - php{{ php_version }}
+      - php{{ php_version }}-mysql
+      - php{{ php_version }}-gd
+      - php-soap
+      - php-mbstring
+      - php-gettext
+      - php-curl
+      - php{{ php_version }}-zip
+    state: present
+
+- name: installing perl modules
+  apt:
+    name:
+      - libxml-simple-perl
+      - libcompress-zlib-perl
+      - libdbi-perl
+      - libdbd-mysql-perl
+      - libapache-dbi-perl
+      - libnet-ip-perl
+      - libsoap-lite-perl
+      - libapache2-mod-perl2
+      - libarchive-zip-perl
+    state: present
+
+- name: install modules from cpan
+  cpanm:
+    name: YAML
+
+- name: install modules from cpan
+  cpanm:
+    name: XML::Entities
+
+- name: install modules from cpan
+  cpanm:
+    name: Mojolicious::Lite
+
+- name: install modules from cpan
+  cpanm:
+    name: Plack::Handler
+
+- name: restart apache
+  service:
+    name: apache2
+    state: restarted
+
+- name: Download and unpack ocs tarball
+  unarchive:
+    src: https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/{{ ocs_version }}/OCSNG_UNIX_SERVER_{{ ocs_version }}.tar.gz
+    dest: "{{ unzip_location }}"
+    remote_src: yes
+
+- name: Create answer file to location
+  template:
+    src: responsefile.j2
+    dest: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/responsefile.txt"
+
+- name: ocsinventory conf file
+  stat:
+    path: "{{ apache_include_conf_directory }}z-ocsinventory-server.conf"
+  register: ocsconffile
+
+#- name: execute install script with answer file
+#  shell: ./setup.sh < responsefile.txt
+#  args:
+#    chdir: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/"
+#  when: ocsconffile is not defined

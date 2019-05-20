@@ -1,0 +1,17 @@
+---
+phpinipath: /etc/opt/remi/php{{ php_version }}/php.ini
+#phpinipath: /opt/remi/php56/root/etc/php.ini
+
+apache_daemon_binary_location: /sbin/httpd
+apache_main_configuration_file: /etc/httpd/conf/httpd.conf
+apache_account: apache
+apache_group: apache
+apache_include_conf_directory: /etc/httpd/conf.d
+perl_interpreter_binary: /bin/perl
+install_communication_server: "y"
+desired_log_path: /var/log/ocsinventory-server
+desired_plugin_conf_file_path: /etc/ocsinventory-server/plugins
+desired_perl_module_file_path: /etc/ocsinventory-server/perl
+rest_api_store: /usr/lib64/perl5/vendor_perl
+static_admin_console_file_path: /usr/share/ocsinventory-reports
+deployment_package_dir_path: /var/lib/ocsinventory-reports
