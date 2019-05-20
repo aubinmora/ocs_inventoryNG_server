@@ -8,6 +8,7 @@
       - mysql-server
       - apache2
       - python-mysqldb
+      - cpanminus
     state: present
 
 - name: start Mariadb
@@ -51,6 +52,7 @@
       - php-gettext
       - php-curl
       - php{{ php_version }}-zip
+      - apache2-dev
     state: present
 
 - name: installing perl modules
@@ -75,7 +77,7 @@
     owner: root
     group: root
     mode: 0755
-  
+
 - name: Configure CPAN
   copy:
     src: MyConfig.pm
@@ -84,21 +86,25 @@
     group: root
     mode: 0644
 
-- name: install modules from cpan
+- name: install YAML module from cpan
   cpanm:
     name: YAML
 
-- name: install modules from cpan
+- name: installXML::Entities module from cpan
   cpanm:
     name: XML::Entities
 
-- name: install modules from cpan
+- name: install Mojolicious::Lite module from cpan
   cpanm:
     name: Mojolicious::Lite
 
-- name: install modules from cpan
+- name: install Plack::Handler module from cpan
   cpanm:
     name: Plack::Handler
+
+- name: install Plack::Handler module from cpan
+  cpanm:
+    name: Apache2::SOAP
 
 - name: restart apache
   service:
