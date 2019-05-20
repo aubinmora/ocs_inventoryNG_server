@@ -1,0 +1,24 @@
+galaxy_info:
+  author: aubinmora
+  description: Quickstart for Ocs Inventory NG Server as there were non available
+  company: none
+  license: license GPLv2
+  min_ansible_version: 2.4
+  platforms:
+    - name: Fedora
+      versions:
+      - all
+    - name: CentOS
+      versions:
+      - all
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags: 
+    - ocs
+    - inventory
+    - ocsinventory
+    - server
