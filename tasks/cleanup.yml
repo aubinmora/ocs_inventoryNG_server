@@ -1,16 +1,11 @@
 ---
 - name: stat install.php
-  stat: 
-    path: "{{ static_admin_console_file_path}}/ocsreports/install.php"
+  stat:
+    path: "{{ static_admin_console_file_path }}/ocsreports/install.php"
   register: installphp_stat
 
-- name: debug file location
-  debug:
-    msg: "installphp absent"
-  when: installphp_stat is not defined
-
 - name: rename install.php to backup
-  command: mv {{ static_admin_console_file_path}}/ocsreports/install.php {{ static_admin_console_file_path}}/ocsreports/install.php.backup
+  command: mv {{ static_admin_console_file_path }}/ocsreports/install.php {{ static_admin_console_file_path }}/ocsreports/install.php.backup
   when: installphp_stat is defined
 
 - name: edit php.ini
@@ -26,6 +21,6 @@
     line: post_max_size = {{ postfilesize }}M
 
 - name: removing temp install files
-  file: 
+  file:
     path: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}"
     state: absent

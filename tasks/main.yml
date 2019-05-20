@@ -1,13 +1,13 @@
 ---
 - name: Include OS-specific variables.
-  include_vars: 
+  include_vars:
     file: "common_vars.yml"
 
 - name: Include OS-specific variables.
-  include_vars: 
+  include_vars:
     file:  "os_{{ ansible_os_family }}_vars.yml"
-  
-- name: Include OS-specific tasks  
+
+- name: Include OS-specific tasks
   include_tasks: os_{{ ansible_os_family }}_tasks.yml
 
 - include_tasks: Openports.yml
