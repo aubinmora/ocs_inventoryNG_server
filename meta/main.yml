@@ -8,9 +8,7 @@ galaxy_info:
     - name: Fedora
       versions:
       - all
-    - name: RedHat
-      versions:
-      - all
+## Works on CentOS
     - name: Debian
       versions:
       - all
