@@ -19,6 +19,10 @@ If OCS is the only service running on your server, dump the base, rebuild it fro
 
 There is little to edit in the config files. For most users, editing the common_vars.yml file on the user, password and database name would suffice. More customisation is allowed as most of the non static parameters are in a var file.
 
+# Disclaimer
+
+This role isn't particulary refined as it uses the bash script delivred by the Software Authors. It mainly resolves dependancies et does a few workarounds to set files permissions. It could be widely improved by turning the entire script into a playbook, as some of the vars are already defined. But that would require rebuilding said playbook every time the original bash script is updated.
+
 # About the Author
 
 There is little to gain by writing such a role (somehow time consuming to say the least), it was done mainly as a form of practice, might as well share. I will edit it if changes are needed. Please notify me if something breaks/If you have improvements in mind.
