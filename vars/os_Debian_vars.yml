@@ -1,4 +1,7 @@
 ---
+#if php version is 5.6, switch the phpinipath statements in the ocs specific var file
+php_version: 7.0
+
 phpinipath: /etc/opt/remi/php{{ php_version }}/php.ini
 #phpinipath: /opt/remi/php56/root/etc/php.ini
 

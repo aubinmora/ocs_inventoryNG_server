@@ -7,6 +7,7 @@
       - aptitude
       - mysql-server
       - apache2
+      - python-mysqldb
     state: present
 
 - name: start Mariadb
@@ -65,6 +66,23 @@
       - libapache2-mod-perl2
       - libarchive-zip-perl
     state: present
+
+- name: Create CPAN config directory
+  file:
+    path: /root/.cpan/CPAN
+    state: directory
+    recurse: no
+    owner: root
+    group: root
+    mode: 0755
+  
+- name: Configure CPAN
+  copy:
+    src: MyConfig.pm
+    dest: /root/.cpan/CPAN/MyConfig.pm
+    owner: root
+    group: root
+    mode: 0644
 
 - name: install modules from cpan
   cpanm:

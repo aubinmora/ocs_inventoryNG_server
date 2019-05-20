@@ -1,7 +1,4 @@
 ---
-#if php version is 5.6, switch the phpinipath statements in the ocs specific var file
-php_version: 70
-
 ocs_version: 2.6
 
 unzip_location: /home
