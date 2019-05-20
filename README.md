@@ -11,7 +11,7 @@ It is also really slow, break packages dependancies, only allow last version of 
 
 # How can it be useful?
 
-If OCS is the only service running on your server, dump the base, rebuild it from the ground up, upload the base on the new, then break the old one. OCS up and running depending mainly on your internet speed. New features without the need to get through the hassle of figuring out what's wrong as it juste works. (or don't, depends if you like Ubuntu)
+If OCS is the only service running on your server, dump the base, rebuild it from the ground up, upload the base on the new, then break the old one. OCS up and running depending mainly on your internet speed. New features without the need to get through the hassle of figuring out what's wrong as it just works. (or don't, depends if you like Ubuntu)
 
 # How to use the Role:
 
