@@ -6,16 +6,16 @@ galaxy_info:
   license: license GPLv2
   min_ansible_version: 2.4
   platforms:
-    - name: Fedora
-      versions:
-      - all
+  - name: Fedora
+    versions:
+    - all
 ## Works on CentOS
-    - name: Debian
-      versions:
-      - all
-    - name: Ubuntu
-      versions:
-      - all
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
   galaxy_tags:
     - ocs
     - inventory
