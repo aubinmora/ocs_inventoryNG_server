@@ -1,8 +1,9 @@
 ---
 - name: Include OS-specific variables.
   include_vars: 
-  - "common_vars.yml"
-  - "os_{{ ansible_os_family }}_vars.yml"
+    file:
+    - "common_vars.yml"
+    - "os_{{ ansible_os_family }}_vars.yml"
 
   
 - name: Include OS-specific tasks  
