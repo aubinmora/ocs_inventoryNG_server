@@ -127,8 +127,55 @@
     path: "{{ apache_include_conf_directory }}z-ocsinventory-server.conf"
   register: ocsconffile
 
-#- name: execute install script with answer file
-#  shell: ./setup.sh < responsefile.txt
-#  args:
-#    chdir: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/"
-#  when: ocsconffile is not defined
+- name: execute install script with answer file
+  shell: ./setup.sh < responsefile.txt
+  args:
+    chdir: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/"
+  when: ocsconffile is not defined
+
+- name: Copy ocs conf files 
+  copy:
+    src: "{{ apache_include_conf_directory }}/z-ocsinventory-server.conf"
+    dest: /etc/apache2
+    remote_src: yes
+
+- name: Copy ocs conf files 
+  copy:
+    src: "{{ apache_include_conf_directory }}/z-ocsinventory-reports.conf"
+    dest: /etc/apache2
+    remote_src: yes
+
+- name: Create Symlinks
+  file:
+    src: "{{ apache_include_conf_directory }}/z-ocsinventory-server.conf"
+    dest: "{{ apache_include_conf_directory }}/ocsinventory.conf"
+    state: link
+
+- name: Create Symlinks
+  file:
+    src: "{{ apache_include_conf_directory }}/z-ocsinventory-reports.conf"
+    dest: "{{ apache_include_conf_directory }}/ocsinventory.conf"
+    state: link
+
+- name: change mode of ocsinventory-reports folder
+  file:
+    path: "{{ static_admin_console_file_path }}"
+    state: directory
+    recurse: yes
+    mode: '0766'
+
+- name: change owner of  of {{ static_admin_console_file_path }} folder
+  file:
+    path: "{{ static_admin_console_file_path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ apache_account }}"
+    group: "{{ apache_group }}"
+
+- name: change owner {{ deployment_package_dir_path }} folder
+  file:
+    path: "{{ deployment_package_dir_path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ apache_account }}"
+    group: "{{ apache_group }}"

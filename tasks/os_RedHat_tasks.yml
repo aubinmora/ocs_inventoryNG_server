@@ -168,7 +168,7 @@
 
 - name: change mode of ocsinventory-reports folder
   file:
-    path: static_admin_console_file_path
+    path: "{{ static_admin_console_file_path }}"
     state: directory
     recurse: yes
     mode: '0766'
