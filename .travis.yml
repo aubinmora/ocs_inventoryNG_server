@@ -3,7 +3,7 @@ language: python
 services: docker
 env:
   global:
-    - ROLE_NAME: docker
+    - ROLE_NAME: ocs_inventoryNG_server
   matrix:
     - MOLECULE_DISTRO: centos7
     - MOLECULE_DISTRO: ubuntu1804
@@ -19,7 +19,7 @@ install:
 before_script:
   - cd ../
   - mv ansible-role-$ROLE_NAME aubinmora.$ROLE_NAME
-  - cd geerlingguy.$ROLE_NAME
+  - cd aubinmora.$ROLE_NAME
 script:
   - molecule test
 notifications:
