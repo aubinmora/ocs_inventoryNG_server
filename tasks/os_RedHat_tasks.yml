@@ -164,7 +164,7 @@
   shell: ./setup.sh < responsefile.txt
   args:
     chdir: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/"
-  when: ocsconffile.stat.exists == False
+  when: ocsconffile.stat.exists != True
 
 - name: change mode of ocsinventory-reports folder
   file:

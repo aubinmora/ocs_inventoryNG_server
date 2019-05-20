@@ -13,7 +13,7 @@
 ## There is a known bug with apparmor which messes with MariaDB
 - name: installing mariadb
   apt:
-    name: 
+    name:
     - mariadb-server
     - software-properties-common
   when: ansible_distribution == "Ubuntu"
@@ -27,7 +27,7 @@
   apt:
     name: mysql-server
   when: ansible_distribution == "Debian"
-  
+
 - name: start Mariadb
   service:
     name: mariadb
@@ -164,15 +164,15 @@
   shell: ./setup.sh < responsefile.txt
   args:
     chdir: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/"
-  when: ocsconffile.stat.exists == False
+  when: ocsconffile.stat.exists != True
 
-- name: Copy ocs conf files 
+- name: Copy ocs conf files
   copy:
     src: "{{ apache_include_conf_directory }}/z-ocsinventory-server.conf"
     dest: /etc/apache2
     remote_src: yes
 
-- name: Copy ocs conf files 
+- name: Copy ocs conf files
   copy:
     src: "{{ apache_include_conf_directory }}/ocsinventory-reports.conf"
     dest: /etc/apache2
