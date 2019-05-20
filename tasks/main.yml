@@ -19,4 +19,3 @@
     body: "name={{ ocs_database_user }}&pass={{ ocs_database_pass }}&database={{ ocs_database_name }}&host={{ ocs_database_server }}"
 
 - include_tasks: cleanup.yml
-
