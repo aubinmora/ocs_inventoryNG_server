@@ -15,7 +15,7 @@
   apt:
     name: 
     - mariadb-server
-    - python-software-properties
+    - software-properties-common
   when: ansible_distribution == "Ubuntu"
 
 - name: install extra repo for "Ubuntu"
@@ -64,10 +64,10 @@
       - php{{ php_version }}
       - php{{ php_version }}-mysql
       - php{{ php_version }}-gd
-      - php-soap
-      - php-mbstring
+      - php{{ php_version }}-soap
+      - php{{ php_version }}-mbstring
       - php-gettext
-      - php-curl
+      - php{{ php_version }}-curl
       - php{{ php_version }}-zip
       - apache2-dev
     state: present
@@ -122,6 +122,11 @@
 - name: install Plack::Handler module from cpan
   cpanm:
     name: Apache2::SOAP
+
+- name: install Plack::Handler module from cpan for ubuntu
+  cpanm:
+    name: Switch
+  when: ansible_distribution == "Ubuntu"
 
 - name: restart apache
   service:
