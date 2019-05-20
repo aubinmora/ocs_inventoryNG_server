@@ -3,7 +3,7 @@ Ansible role for OCS inventory NG
 
 # Tested
 
-Tested of CentOS 7, Debian 9.X, currently working with no issue (might as well work on RedHat and Fedora, the main difference would be the dependancies)
+Tested on CentOS 7, Debian 9.X, currently working with no issue (might as well work on RedHat and Fedora, the main difference would be the dependancies)
 
 
 Ubuntu semi-works, as there is issues between mariaDB and AppArmor.
