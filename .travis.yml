@@ -12,15 +12,17 @@ env:
     - MOLECULE_DISTRO: debian9
     - MOLECULE_DISTRO: fedora30
     - MOLECULE_DISTRO: fedora29
-    - MOLECULE_DISTRO: fedora28
-    - MOLECULE_DISTRO: fedora27
+
 install:
   - pip install molecule docker
+
 before_script:
   - cd ../
   - mv ansible-role-$ROLE_NAME aubinmora.$ROLE_NAME
   - cd aubinmora.$ROLE_NAME
+
 script:
   - molecule test
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
