@@ -1,0 +1,19 @@
+---
+- name: open port for service https
+  firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: open port for service http
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: reload firewalld
+  service: 
+    name: firewalld 
+    state: restarted

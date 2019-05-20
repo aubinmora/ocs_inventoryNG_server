@@ -1,0 +1,35 @@
+---
+- name: stat install.php
+  stat: 
+    path: "{{ static_admin_console_file_path}}/ocsreports/install.php"
+  register: installphp_stat
+
+- name: debug file location
+  debug:
+    msg: "installphp absent"
+  when: installphp_stat is not defined
+
+- name: rename install.php to backup
+  command: mv {{ static_admin_console_file_path}}/ocsreports/install.php {{ static_admin_console_file_path}}/ocsreports/install.php.backup
+  when: installphp_stat is defined
+
+- name: edit php.ini
+  lineinfile:
+    path: "{{ phpinipath }}"
+    regexp: '^upload_max_filesize'
+    line: upload_max_filesize = {{ uploadfilesize }}M
+
+- name: edit php.ini
+  lineinfile:
+    path: "{{ phpinipath }}"
+    regexp: '^post_max_size'
+    line: post_max_size = {{ postfilesize }}M
+
+- name: removing utilities
+  yum:
+    name:
+      - wget
+      - MySQL-python
+      - python-pip
+      - policycoreutils-python
+    state: absent

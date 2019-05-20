@@ -1,0 +1,192 @@
+---
+- name: install epel repo
+  yum:
+    name: 
+      - epel-release
+    state: present
+
+- name: install centos-release-scl repo
+  yum:
+    name: 
+      - centos-release-scl
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Install remi repo
+  yum:
+    name: http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Import remi GPG key
+  rpm_key:
+    key: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: install utilities from yum
+  yum:
+    name:
+      - wget
+      - MySQL-python
+      - python-pip
+      - policycoreutils-python
+    state: present
+
+- name: install utilities from pip
+  pip:
+    name:
+      - pexpect
+    state: present
+
+- name: install apache
+  yum:
+    name: httpd
+    state: present
+
+- name: install Mariadb
+  yum:
+    name: mariadb-server
+    state: present
+
+- name: start Mariadb
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: start Apache
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: create database database
+  mysql_db:
+    name: "{{ ocs_database_name }}"
+    state: present
+
+- name: Create database user and grant privileges
+  mysql_user:
+    name: "{{ ocs_database_user }}"
+    password: "{{ ocs_database_pass }}"
+    priv: "{{ ocs_database_name }}.*:ALL"
+    state: present
+
+- name: restart Mariadb
+  service:
+    name: mariadb
+    state: restarted
+
+- name: install apacheDBI rpm from remote repo
+  yum:
+    name: https://harbottle.gitlab.io/epmel/7/x86_64//epmel-release-7-3.el7.harbottle.x86_64.rpm
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: install apacheDBI rpm from remote repo
+  dnf:
+    name: perl-Apache-DBI
+    state: present
+  when: ansible_distribution == "Fedora"
+
+- name: install perl modules
+  yum:
+    name:
+      - perl-XML-Simple 
+      - perl-Compress-Zlib 
+      - perl-DBI 
+      - perl-DBD-MySQL 
+      - perl-Net-IP 
+      - perl-SOAP-Lite 
+      - perl-Archive-Zip 
+      - perl-Mojolicious 
+      - perl-Plack 
+      - perl-XML-Entities 
+      - perl-Switch
+    state: present
+
+- name: install php and php modules
+  yum:
+    name:
+      - php{{ php_version }}
+      - php{{ php_version }}-php
+      - php{{ php_version }}-php-mysqlnd
+      - php{{ php_version }}-php-ldap
+      - php{{ php_version }}-php-pecl-zip
+      - php{{ php_version }}-php-gd
+      - php{{ php_version }}-php-curl
+      - php{{ php_version }}-php-mbstring
+      - php{{ php_version }}-php-soap
+      - php{{ php_version }}-php-xml
+    state: present
+  when: ansible_distribution == 'RedHat' or ansible_distribution == "CentOS" 
+
+- name: install php modules for fedora
+  dnf:
+    name: 
+      - php{{ php_version }}-php-common
+      - php{{ php_version }}-php-gd
+    state: present
+  when: ansible_distribution == "Fedora"
+
+- name: install OCS rpm
+  yum:
+    name: https://rpm.ocsinventory-ng.org/ocsinventory-release-latest.el7.ocs.noarch.rpm
+    state: present
+
+- name: install OCS inventory server
+  yum:
+    name: ocsinventory-server
+
+- name: Download and unpack ocs tarball
+  unarchive:
+    src: https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/{{ ocs_version }}/OCSNG_UNIX_SERVER_{{ ocs_version }}.tar.gz
+    dest: "{{ unzip_location }}"
+    remote_src: yes
+
+- name: restart Apache
+  service:
+    name: httpd
+    state: restarted
+
+- name: Create answer file to location
+  template:
+    src: responsefile.j2
+    dest: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/responsefile.txt"
+
+- name: execute install script with answer file
+  shell: ./setup.sh < responsefile.txt
+  args:
+    chdir: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/"
+  
+- name: change mode of ocsinventory-reports folder
+  file:
+    path: static_admin_console_file_path
+    state: directory
+    recurse: yes
+    mode: '0766'
+
+- name: change owner of  of {{ static_admin_console_file_path }} folder
+  file:
+    path: "{{ static_admin_console_file_path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ apache_account }}"
+    group: "{{ apache_group }}"
+
+- name: change owner {{ deployment_package_dir_path }} folder
+  file:
+    path: "{{ deployment_package_dir_path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ apache_account }}"
+    group: "{{ apache_group }}"
+
+- name: set file permission for selinux 
+  shell: chcon -R -t httpd_sys_rw_content_t {{ static_admin_console_file_path }}/
+
+- name: restart Apache
+  service:
+    name: httpd
+    state: restarted    
