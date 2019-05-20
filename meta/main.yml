@@ -1,6 +1,6 @@
 galaxy_info:
   author: aubinmora
-  description: Quickstart for Ocs Inventory NG Server as there were non available
+  description: Ansible role to set up Ocs Inventory NG Server
   company: none
   license: license GPLv2
   min_ansible_version: 2.4
