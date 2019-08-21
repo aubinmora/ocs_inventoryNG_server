@@ -61,7 +61,7 @@
     state: started
     enabled: yes
 
-- name: create database database
+- name: create database
   mysql_db:
     name: "{{ ocs_database_name }}"
     state: present
@@ -151,7 +151,7 @@
     state: restarted
 
 - name: Create answer file to location
-  template:
+  templates:
     src: responsefile.j2
     dest: "{{ unzip_location }}/OCSNG_UNIX_SERVER_{{ ocs_version }}/responsefile.txt"
 
