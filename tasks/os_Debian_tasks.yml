@@ -1,5 +1,5 @@
 ---
-- name: installing basic dependancies
+- name installing basic dependancies
   apt:
     name:
       - make
